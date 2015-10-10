@@ -2,8 +2,9 @@
   <head>
     <title>Sign Language Translator</title>
     <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script>
       $(document).ready(function() {
         var user_score = 0;
@@ -39,7 +40,7 @@
       <h3 class="text-center"><div id="user_score" class="label label-default">Score: 0</div></h3>
     </div>
     <div id="container">
-      <div id="content">
+      <div class="lato" id="content">
         <div id="image"><img id="realimage" width="500px" src="static/asl/b.gif"></div>
         <div id="prompt" class="b">Make a b</div>
       </div>
