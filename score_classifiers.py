@@ -1,15 +1,11 @@
 from sklearn import svm
 from sklearn.naive_bayes import GaussianNB, BernoulliNB
 from sklearn.externals import joblib
+from sklearn.cross_validation import train_test_split
 
 import asl
 
-threshold = int(len(asl.data) * 0.8)
-training_data = asl.data[:threshold]
-training_target = asl.target[:threshold]
-
-test_data = asl.data[threshold:]
-test_target = asl.target[threshold:]
+training_data, test_data, training_target, test_target = train_test_split(asl.data, asl.target, test_size=0.3, random_state=0)
 
 classifiers = {
         'SVC': svm.SVC(gamma=0.001, C=100.),
