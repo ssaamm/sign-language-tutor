@@ -5,8 +5,14 @@ Usage:
     clf.predict(test_data)
 '''
 from sklearn import svm
+from sklearn.externals import joblib
 
-import asl
+FILENAME = 'clf.pkl'
 
-clf = svm.SVC(gamma=0.0001, C=50)
-clf.fit(asl.data, asl.target)
+try:
+    clf = joblib.load(FILENAME)
+except:
+    import asl
+    clf = svm.SVC(gamma=0.0001, C=50)
+    clf.fit(asl.data, asl.target)
+    joblib.dump(clf, FILENAME)
