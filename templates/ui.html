@@ -10,9 +10,9 @@
             console.log(data);
             if (data.new) {
               $('#translation-text').append(data.symbol);
+              $('body').scrollLeft($(document).outerWidth());
             }
           });
-          $('body').scrollLeft($(document).outerWidth());
         }, 1000);
       });
     </script>
