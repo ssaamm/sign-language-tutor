@@ -3,8 +3,10 @@
     <title>Sign Language Translator</title>
     <link rel="stylesheet" href="static/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script>
       $(document).ready(function() {
+        var user_score = 0;
         window.setInterval(function() {
           $.get('/current', '', function(data, textStatus, jqXHR) {
             if (data.new) {
@@ -14,10 +16,18 @@
                 var newText = 'Great job! Now try "' + nextChar + '"';
                 $('#prompt').attr('class', nextChar);
                 $('#realimage').attr('src', 'static/asl/' + nextChar + '.gif');
+                user_score += 100;
+                $('#user_score').text('Score: ' + user_score);
               } else {
                 var newText = 'Not quite; try again!';
               }
               $('#prompt').text(newText);
+
+              function sleep(miliseconds) {
+                var currentTime = new Date().getTime();
+                while (currentTime + miliseconds >= new Date().getTime()) {}
+              }
+              sleep(1300);
             }
           });
         }, 500);
@@ -25,6 +35,9 @@
     </script>
   </head>
   <body>
+    <div id="scores">
+      <h3 class="text-center"><div id="user_score" class="label label-default">Score: 0</div></h3>
+    </div>
     <div id="container">
       <div id="content">
         <div id="image"><img id="realimage" width="500px" src="static/asl/b.gif"></div>

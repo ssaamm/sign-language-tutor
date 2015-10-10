@@ -65,5 +65,10 @@ def current_symbol():
         prev_prediction = prediction
         return jsonify(new=True, symbol=prediction)
 
+
+@app.route('/scoreboard')
+def scoreboard():
+    return jsonify(user_score=100)
+
 if __name__ == '__main__':
     app.run(debug=True)
