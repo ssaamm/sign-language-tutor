@@ -29,6 +29,7 @@ def add_score():
     data = request.form
     try:
         record = json.dumps({'user': data['user'], 'score': int(data['score'])})
+        print record
         result = r.lpush('scoreboard', record)
         return jsonify(error=result)
     except KeyError:
