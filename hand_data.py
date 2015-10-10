@@ -7,7 +7,7 @@ gets the current frame from controller
 for each finger, stores the topmost end of each bone (4 points)
 adjusts bone location relativity by subtracting the center of the palm
 returns the adjusted bone locations in the form:
-[(finger1bone1x, finger1bone1y, finger1bone1z), ... finger5bone4z)]
+{feat0=some_float, feat1=some_float, ... feat59=some_float}
 '''
 def get_hand_position(controller):
     print "NEW FRAME"
@@ -25,9 +25,11 @@ def get_hand_position(controller):
     for hand in hands:
         hand_center = hand.palm_position
 
-    calibrated_finger_bones = []
-    for joint in finger_bones:
-        calibrated_finger_bones.append(joint - hand_center)
+    calibrated_finger_bones = {}
+    for i in range(len(finger_bones)):
+        normalized_joint = (finger_bones[i] - hand_center).to_tuple()
+        for j in range(3):
+            calibrated_finger_bones["feat" + str(i*3+j)] = normalized_joint[j]
 
     return calibrated_finger_bones
 
