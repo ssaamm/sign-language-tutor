@@ -4,9 +4,9 @@ Usage:
     from classifier import clf
     clf.predict(test_data)
 '''
-from sklearn import neighbors
+from sklearn import svm
 
 import asl
 
-clf = neighbors.KNeighborsClassifier(15, weights='distance')
+clf = svm.SVC(gamma=0.0001, C=50)
 clf.fit(asl.data, asl.target)

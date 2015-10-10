@@ -4,8 +4,8 @@ from db import add_data
 from classifier import clf
 import time
 
-NUM_SAMPLES = 40
-SAMPLE_DELAY = .3
+NUM_SAMPLES = 100
+SAMPLE_DELAY = .1
 NUM_FEATURES = 60
 
 
@@ -40,20 +40,12 @@ def guess_char():
 def train():
     while True:
         training_char = get_char_to_train()
-        time.sleep(3)
+        time.sleep(2)
         train_char(training_char)
 
 
 def guess():
     while True:
-        '''
-        frame_chars = []
-        for i in range(20):
-            frame_chars.append(guess_char())
-
-        # choose most common sample
-        print max(set(frame_chars), key=frame_chars.count)
-        '''
         guess_char()
         time.sleep(1)
 
