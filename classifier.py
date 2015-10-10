@@ -4,10 +4,9 @@ Usage:
     from classifier import clf
     clf.predict(test_data)
 '''
-from sklearn.naive_bayes import GaussianNB
-from sklearn.externals import joblib
+from sklearn import svm
 
 import asl
 
-clf = GaussianNB()
+clf = svm.SVC(gamma=0.0001, C=50)
 clf.fit(asl.data, asl.target)
