@@ -13,6 +13,6 @@ try:
     clf = joblib.load(FILENAME)
 except:
     import asl
-    clf = svm.SVC(gamma=0.0001, C=50)
+    clf = svm.SVC(gamma=0.0001, C=50, probability=True)
     clf.fit(asl.data, asl.target)
     joblib.dump(clf, FILENAME)

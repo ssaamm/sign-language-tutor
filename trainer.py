@@ -1,13 +1,17 @@
+from classifier import clf
+from collections import OrderedDict
+from db import add_data
 from hand_data import get_hand_position
 from lib import Leap
-from db import add_data
-from classifier import clf
 import time
+import pickle
 
 NUM_SAMPLES = 100
 SAMPLE_DELAY = .1
 NUM_FEATURES = 60
 
+with open('wordLemPoS/markov.pkl', 'r') as f:
+    markov = pickle.load(f)
 
 def get_char_to_train():
     training_char = raw_input("Enter char to train: ")
@@ -32,12 +36,29 @@ def train_char(training_char):
     print "Done training"
 
 
+prev = 'a'
 def guess_char():
+    global prev
+
     controller = Leap.Controller()
-    frame_guesses = []
-    for i in range(10):
-        frame_guesses.append(clf.predict([v for k, v in get_hand_position(controller, True).iteritems()])[0])
-    print max(set(frame_guesses), key=frame_guesses.count)
+    controller.set_policy(Leap.Controller.POLICY_BACKGROUND_FRAMES)
+
+    classes = clf.classes_
+
+    probs = zip(classes, clf.predict_proba([v for k, v in
+        get_hand_position(controller, True).iteritems()])[0])
+
+    m = markov[prev]
+    most_sym, most_val = m.most_common(1)[0]
+
+    alpha = max([score for sym, score in probs])
+
+    most_probable = sorted([(sym, alpha * score + (1 - alpha) * m[sym] /
+        most_val) for sym, score in probs], key=lambda t: t[1],
+        reverse=True)
+    print most_probable[:3]
+    prev = most_probable[0][0]
+    print prev
 
 
 def train():
