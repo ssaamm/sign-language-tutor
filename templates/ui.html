@@ -7,12 +7,13 @@
       $(document).ready(function() {
         window.setInterval(function() {
           $.get('/current', '', function(data, textStatus, jqXHR) {
+            console.log(data);
             if (data.new) {
               $('#translation-text').append(data.symbol);
             }
           });
           $('body').scrollLeft($(document).outerWidth());
-        }, 400);
+        }, 1000);
       });
     </script>
   </head>

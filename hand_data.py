@@ -12,8 +12,8 @@ returns the adjusted bone locations in the form:
 '''
 def get_hand_position(controller):
     frame = controller.frame()
-    while len(frame.fingers) == 0:
-        frame = controller.frame()
+    if len(frame.fingers) == 0:
+        return None
 
     fingers = controller.frame().fingers
     finger_bones = []
