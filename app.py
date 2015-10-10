@@ -16,9 +16,13 @@ prev_prediction = None
 with open('wordLemPoS/markov.pkl', 'r') as f:
     markov = pickle.load(f)
 
-@app.route('/')
-def hello():
+@app.route('/translate')
+def translate():
     return render_template('ui.html')
+
+@app.route('/')
+def tutorial():
+    return render_template('tutorial.html')
 
 @app.route('/current')
 def current_symbol():

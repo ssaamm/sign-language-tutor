@@ -1,13 +1,15 @@
 #container {
     display: table;
     height: 100%;
+    width: 100%;
+    text-align: center;
 }
 
-#translation-text {
+#content {
     display: table-cell;
     vertical-align: middle;
-    align: right;
+    text-align: center;
     font-family: sans-serif;
-    font-size: 128pt;
+    font-size: 64pt;
     white-space: nowrap;
 }

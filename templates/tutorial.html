@@ -1,0 +1,35 @@
+<html lang="en">
+  <head>
+    <title>Sign Language Translator</title>
+    <link rel="stylesheet" href="static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        window.setInterval(function() {
+          $.get('/current', '', function(data, textStatus, jqXHR) {
+            if (data.new) {
+              var goal = $('#prompt').attr('class');
+              if (data['symbol'] == goal) {
+                var nextChar = String.fromCharCode(0x61 + Math.random() * (0x7A-0x61+1));
+                var newText = 'Great job! Now try "' + nextChar + '"';
+                $('#prompt').attr('class', nextChar);
+                $('#realimage').attr('src', 'static/asl/' + nextChar + '.gif');
+              } else {
+                var newText = 'Not quite; try again!';
+              }
+              $('#prompt').text(newText);
+            }
+          });
+        }, 500);
+      });
+    </script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="content">
+        <div id="image"><img id="realimage" width="500px" src="static/asl/b.gif"></div>
+        <div id="prompt" class="b">Make a b</div>
+      </div>
+    </div>
+  </body>
+</html>
