@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="static/style.css">
 
     <script>
+      var chars = 'abcdfghijlmorstvwxyz';
       var user_score = 0;
       $(document).ready(function() {
 
@@ -17,7 +18,12 @@
             if (data.new) {
               var goal = $('#prompt').attr('class');
               if (data['symbol'] == goal) {
-                var nextChar = String.fromCharCode(0x61 + Math.random() * (0x7A-0x61+1));
+                var ndx = Math.floor(Math.random() * chars.length);
+                if (chars[ndx] == goal) {
+                  ndx = (ndx + 1) % chars.length;
+                }
+
+                var nextChar = chars[ndx];
                 var newText = 'Great job! Now try "' + nextChar + '"';
                 $('#prompt').attr('class', nextChar);
                 $('#realimage').attr('src', 'static/asl/' + nextChar + '.gif');
@@ -33,7 +39,6 @@
               var currentTime = new Date().getTime();
               while (currentTime + miliseconds >= new Date().getTime()) {}
             }
-
             sleep(1000);
 
             if(new Date().getTime()/1000 - start_time >= 10){
@@ -42,8 +47,6 @@
             }
           });
         }, 200);
-
-
       });
 
       function game_over_screen(){
