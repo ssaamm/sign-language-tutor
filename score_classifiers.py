@@ -1,6 +1,7 @@
 from sklearn import svm
 from sklearn.naive_bayes import GaussianNB, BernoulliNB
-from sklearn.externals import joblib
+from sklearn import neighbors, tree
+from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 
 import asl
 
@@ -13,8 +14,13 @@ test_target = asl.target[threshold:]
 
 classifiers = {
         'SVC': svm.SVC(gamma=0.001, C=100.),
-        'NB': GaussianNB(),
+        'NB ': GaussianNB(),
         'BNB': BernoulliNB(),
+        'NBU': neighbors.KNeighborsClassifier(15, weights='uniform'),
+        'NBD': neighbors.KNeighborsClassifier(15, weights='distance'),
+        'TRE': tree.DecisionTreeClassifier(),
+        'GBC': GradientBoostingClassifier(n_estimators=100, learning_rate=1.0, max_depth=1, random_state=0),
+        'RFC': RandomForestClassifier()
     }
 
 for name, clf in classifiers.iteritems():
