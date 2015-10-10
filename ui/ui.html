@@ -1,0 +1,21 @@
+<html lang="en">
+  <head>
+    <title>Sign Language Translator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        window.setInterval(function() {
+          $('#translation-text').append(Math.random() < 0.5 ? 'a' : 'b');
+          $('body').scrollLeft($(document).outerWidth());
+        }, 250);
+      });
+    </script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="translation-text">
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+#container {
+    display: table;
+    height: 100%;
+}
+
+#translation-text {
+    display: table-cell;
+    vertical-align: middle;
+    align: right;
+    font-family: sans-serif;
+    font-size: 96pt;
+    white-space: nowrap;
+}
