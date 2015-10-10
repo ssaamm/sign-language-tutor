@@ -25,3 +25,13 @@
 .lato {
   font-family: 'Lato', sans-serif;
 }
+
+#progressbar {
+    background: slategray;
+    text-align: center;
+    overflow: hidden;
+}
+
+#myModal {
+    margin-top: 300px;
+}
