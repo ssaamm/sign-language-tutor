@@ -1,0 +1,25 @@
+<html lang="en">
+  <head>
+    <title>Sign Language Translator</title>
+    <link rel="stylesheet" href="static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        window.setInterval(function() {
+          $.get('/current', '', function(data, textStatus, jqXHR) {
+            if (data.new) {
+              $('#translation-text').append(data.symbol);
+            }
+          });
+          $('body').scrollLeft($(document).outerWidth());
+        }, 400);
+      });
+    </script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="translation-text">
+      </div>
+    </div>
+  </body>
+</html>
