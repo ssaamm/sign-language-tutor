@@ -23,10 +23,10 @@ def train_char(training_char):
     controller = Leap.Controller()
     for t in range(NUM_SAMPLES):
         time.sleep(SAMPLE_DELAY)
-        sample = get_hand_position(controller)
+        sample = get_hand_position(controller, True)
         while len(sample) != NUM_FEATURES:
             print "Please place only right hand in view"
-            sample = get_hand_position(controller)
+            sample = get_hand_position(controller, True)
         print sample
         add_data(sign=training_char, **sample)
     print "Done training"
@@ -34,7 +34,10 @@ def train_char(training_char):
 
 def guess_char():
     controller = Leap.Controller()
-    print clf.predict([v for k, v in get_hand_position(controller=controller).iteritems()])
+    frame_guesses = []
+    for i in range(10):
+        frame_guesses.append(clf.predict([v for k, v in get_hand_position(controller, True).iteritems()])[0])
+    print max(set(frame_guesses), key=frame_guesses.count)
 
 
 def train():

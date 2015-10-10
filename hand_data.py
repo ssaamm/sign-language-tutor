@@ -10,10 +10,13 @@ adjusts bone location relativity by subtracting the center of the palm
 returns the adjusted bone locations in the form:
 {feat0=some_float, feat1=some_float, ... feat59=some_float}
 '''
-def get_hand_position(controller):
+def get_hand_position(controller, blocking=False):
     frame = controller.frame()
-    if len(frame.fingers) == 0:
+    if not blocking and len(frame.fingers) == 0:
         return None
+
+    while len(frame.fingers) == 0:
+        frame = controller.frame()
 
     fingers = controller.frame().fingers
     finger_bones = []
