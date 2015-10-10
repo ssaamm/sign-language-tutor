@@ -37,3 +37,10 @@ def add_data(sign, **features):
 def get_all_data():
     sel = select([tagged_data])
     return conn.execute(sel)
+
+if __name__ == '__main__':
+    print 'Adding random data to database'
+    features = dict(zip(['feat' + str(i) for i in range(NUM_FEATURES)],
+        [random.uniform(0, 10) for _ in range(NUM_FEATURES)])
+    )
+    add_data(sign='b', **features)
