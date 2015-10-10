@@ -1,4 +1,5 @@
 import time
+import collections
 from lib import Leap
 from lib.Leap import Bone
 
@@ -10,7 +11,10 @@ returns the adjusted bone locations in the form:
 {feat0=some_float, feat1=some_float, ... feat59=some_float}
 '''
 def get_hand_position(controller):
-    print "NEW FRAME"
+    frame = controller.frame()
+    while len(frame.fingers) == 0:
+        frame = controller.frame()
+
     fingers = controller.frame().fingers
     finger_bones = []
     for finger in fingers:
@@ -25,7 +29,7 @@ def get_hand_position(controller):
     for hand in hands:
         hand_center = hand.palm_position
 
-    calibrated_finger_bones = {}
+    calibrated_finger_bones = collections.OrderedDict()
     for i in range(len(finger_bones)):
         normalized_joint = (finger_bones[i] - hand_center).to_tuple()
         for j in range(3):
