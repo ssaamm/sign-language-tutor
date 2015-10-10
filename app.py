@@ -39,7 +39,7 @@ def add_score():
 def get_scores():
     scores = [json.loads(i) for i in r.lrange('scoreboard', 0, 100)]
     scores.sort(key=lambda s: s['score'], reverse=True)
-    return jsonify(scores=scores)
+    return jsonify(scores=scores[:10])
 
 @app.route('/current')
 def current_symbol():
