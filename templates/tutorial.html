@@ -24,20 +24,20 @@
               }
               $('#prompt').text(newText);
 
-              function sleep(miliseconds) {
-                var currentTime = new Date().getTime();
-                while (currentTime + miliseconds >= new Date().getTime()) {}
-              }
-              sleep(1300);
             }
+            function sleep(miliseconds) {
+              var currentTime = new Date().getTime();
+              while (currentTime + miliseconds >= new Date().getTime()) {}
+            }
+            sleep(1000);
           });
-        }, 500);
+        }, 200);
       });
     </script>
   </head>
   <body>
     <div id="scores">
-      <h3 class="text-center"><div id="user_score" class="label label-default">Score: 0</div></h3>
+      <h3 class="text-center"><span id="user_score" class="label label-default">Score: 0</span></h3>
     </div>
     <div id="container">
       <div class="lato" id="content">

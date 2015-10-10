@@ -17,6 +17,7 @@
 #scores {
     margin-top: 80px;
     margin-bottom: -80px;
+    font-family: 'Lato', sans-serif;
 }
 #prompt {
   font-family: 'Lato', sans-serif;
