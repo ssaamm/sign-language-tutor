@@ -12,7 +12,7 @@
           $.get('/current', '', function(data, textStatus, jqXHR) {
             if (data.new) {
               var goal = $('#prompt').attr('class');
-              if ($.inArray(goal, data.symbols)) {
+              if (data['symbol'] == goal) {
                 var nextChar = String.fromCharCode(0x61 + Math.random() * (0x7A-0x61+1));
                 var newText = 'Great job! Now try "' + nextChar + '"';
                 $('#prompt').attr('class', nextChar);
@@ -41,7 +41,7 @@
     </div>
     <div id="container">
       <div class="lato" id="content">
-        <div id="image"><img id="realimage" width="400px" src="static/asl/b.gif"></div>
+        <div id="image"><img id="realimage" width="500px" src="static/asl/b.gif"></div>
         <div id="prompt" class="b">Make a b</div>
       </div>
     </div>

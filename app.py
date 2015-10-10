@@ -58,13 +58,10 @@ def current_symbol():
     prediction = ''.join(clf.predict(features))
     if prediction == prev_prediction:
         # We good fam
-        clf_probs = sorted(zip(clf.classes_, clf.predict_proba(features)[0]),
-                reverse=True, key=lambda t: t[1])
-
-        return jsonify(new=False, symbols=[sym for sym, score in clf_probs[:1]])
+        return jsonify(new=False, symbol=prediction)
     else:
         prev_prediction = prediction
-        return jsonify(new=True, symbols=[prediction])
+        return jsonify(new=True, symbol=prediction)
 
 @app.route('/splash')
 def splash():
