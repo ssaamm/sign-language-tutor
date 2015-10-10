@@ -35,3 +35,10 @@
 #myModal {
     margin-top: 300px;
 }
+
+#back_to_splash, #back_to_splash_link {
+    float: right;
+    border-style: none;
+    margin-right: 70px;
+}
+

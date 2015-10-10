@@ -54,26 +54,40 @@
 
       function game_over_screen(){
         $("#container").fadeOut();
-        $("#scores").fadeOut();
+        $("#topbar").fadeOut();
         $('#point_amount').text(user_score.toString());
         $("#myModal").modal('show');
       }
 
-      function submit_score(name){
-        console.log(name);
+      window.submit_score = function submit_score(){
+        var name = $("#username").val();
         $.post('score', {'score': user_score, 'user': name});
-        $.get('scores', '', function(scores){console.log(scores)});
+        $.get('scores', '', function(scores){
+          console.log(scores['scores'].length);
+          for( var i = 0; i < scores['scores'].length; i++){
+            console.log(scores['scores'][i]);
+            $("#scoreboard").append("<tr><td>" + scores['scores'][i].user +  "</td><td>" + scores['scores'][i].score + "</td></tr>");
+          }
+        });
+
+        $("#scoreboard").removeClass('hidden');
+        $("#scoreboard_title").removeClass('hidden');
+        $("#back_to_splash_link").removeClass('hidden');
       }
 
     </script>
   </head>
   <body>
+  <a id="back_to_splash_link" class='hidden' href="/splash"><button class="btn btn-primary" id="back_to_splash">Home</button></a>
     <div id="scores">
-      <h3 class="text-center"><span id="user_score">score 0</span> &nbsp; &nbsp; &ndash; &nbsp; &nbsp; <span id="time-left">30</span>s left</h3>
-      <table class="table">
-        <tr></tr>
-      </table>
+      <h3 id="topbar" class="text-center"><span id="user_score">score 0</span> &nbsp; &nbsp; &ndash; &nbsp; &nbsp; <span id="time-left">30</span>s left</h3>
+      <div class="container">
+        <h2 class="lato hidden" id="scoreboard_title">Scoreboard</h2>
+        <table class="table hidden" id="scoreboard">
+        </table>
+      </div>
     </div>
+
 
     <div id="myModal" class="modal fade" role="dialog" data-backdrop="static">
       <div class="modal-dialog">
@@ -86,11 +100,11 @@
             <div class="modal-body">
               <p>You scored <span id="point_amount"></span> points.</p>
               <p>What is your name?</p>
-                <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name">
+                <label for="username">Name:</label>
+                <input type="text" class="form-control" id="username">
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="submit_score(result.name)">Submit</button>
+              <button type="submit" class="btn btn-primary" data-dismiss="modal" onclick="submit_score()">Submit</button>
             </div>
             </div>
           </div>
@@ -98,17 +112,6 @@
       </div>
 
       </div>
-
-    <table class="table hidden">
-      <tr>
-        <td>Matt</td>
-        <td>10000</td>
-      </tr>
-      <tr>
-        <td>Sam</td>
-        <td>7000</td>
-      </tr>
-    </table>
 
     <div id="container">
       <div class="lato" id="content">
