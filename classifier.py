@@ -4,10 +4,9 @@ Usage:
     from classifier import clf
     clf.predict(test_data)
 '''
-from sklearn.naive_bayes import GaussianNB
-from sklearn.externals import joblib
+from sklearn import neighbors
 
 import asl
 
-clf = GaussianNB()
+clf = neighbors.KNeighborsClassifier(15, weights='distance')
 clf.fit(asl.data, asl.target)
