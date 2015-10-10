@@ -1,9 +1,10 @@
 from classifier import clf
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request, json
 from hand_data import get_hand_position
 from lib import Leap
 import pickle
 import random
+import redis
 
 app = Flask(__name__)
 
@@ -13,6 +14,8 @@ controller.set_policy(Leap.Controller.POLICY_BACKGROUND_FRAMES)
 past_symbol = 'a'
 prev_prediction = None
 
+r = redis.StrictRedis(host='localhost', port=6379, db=0)
+
 @app.route('/translate')
 def translate():
     return render_template('ui.html')
@@ -20,6 +23,24 @@ def translate():
 @app.route('/')
 def tutorial():
     return render_template('tutorial.html')
+
+@app.route('/score', methods=['POST'])
+def add_score():
+    data = request.form
+    try:
+        record = json.dumps({'user': data['user'], 'score': data['score']})
+        print record
+        result = r.lpush('scoreboard', record)
+        return jsonify(error=result)
+    except KeyError:
+        return jsonify(error=True)
+
+@app.route('/scores', methods=['GET'])
+def get_scores():
+    scores = [json.loads(i) for i in r.lrange('scoreboard', 0, 100)]
+    for s in scores:
+        print s
+    return json.dumps(scores)
 
 @app.route('/current')
 def current_symbol():
