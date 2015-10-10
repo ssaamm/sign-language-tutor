@@ -14,8 +14,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
 parts/
 sdist/
 var/
@@ -55,3 +53,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# osx stuff
+.DS_Store
