@@ -1,6 +1,6 @@
 <html lang="en">
   <head>
-    <title>Sign Language Translator</title>
+    <title>ASL Tutor</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="static/bootstrap.min.css">
       <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="static/style.css">
 
     <script>
-      var chars = 'abcdfghijlmorstvwxyz';
+      var chars = 'abcdfghijlorstvwxyz';
       var user_score = 0;
       $(document).ready(function() {
 
@@ -28,25 +28,28 @@
                 $('#prompt').attr('class', nextChar);
                 $('#realimage').attr('src', 'static/asl/' + nextChar + '.gif');
                 user_score += 100;
-                $('#user_score').text('Score: ' + user_score);
+                $('#user_score').text('score ' + user_score);
               } else {
                 var newText = 'Not quite; try again!';
               }
               $('#prompt').text(newText);
-
-            }
-            function sleep(miliseconds) {
-              var currentTime = new Date().getTime();
-              while (currentTime + miliseconds >= new Date().getTime()) {}
-            }
-            sleep(1000);
-
-            if(new Date().getTime()/1000 - start_time >= 10){
-              clearInterval(asl_interval);
-              game_over_screen();
             }
           });
         }, 200);
+
+        setInterval(function() {
+          var current_time = new Date().getTime() / 1000;
+          var timeleft = Math.floor(30 - (current_time - start_time));
+          if (timeleft < 0) {
+            timeleft = 0;
+          }
+          $('#time-left').text(timeleft);
+        }, 1000);
+
+        setTimeout(function() {
+          clearInterval(asl_interval);
+          game_over_screen();
+        }, 30000);
       });
 
       function game_over_screen(){
@@ -66,7 +69,7 @@
   </head>
   <body>
     <div id="scores">
-      <h3 class="text-center"><span id="user_score" class="label label-default">Score: 0</span></h3>
+      <h3 class="text-center"><span id="user_score">score 0</span> &nbsp; &nbsp; &ndash; &nbsp; &nbsp; <span id="time-left">30</span>s left</h3>
       <table class="table">
         <tr></tr>
       </table>
@@ -109,7 +112,7 @@
 
     <div id="container">
       <div class="lato" id="content">
-        <div id="image"><img id="realimage" width="500px" src="static/asl/b.gif"></div>
+        <div id="image"><img id="realimage" width="400px" src="static/asl/b.gif"></div>
         <div id="prompt" class="b">Make a b</div>
       </div>
     </div>
