@@ -1,7 +1,23 @@
-# sign-language-translator
-Translator for American Sign Language using a Leap Motion and machine learning
+# ASL Tutor
 
-## Files:
-- db.py -- functions for adding and getting data
-- asl.py -- adapter for the ASL data from the DB
-- classifier.py -- makes `clf` available, a classifier trained with all our data
+<img alt="ASL Tutor logo" width="400px" src="http://i.imgur.com/ZPg5guN.png">
+
+A language learning tool for American Sign Language which uses skeletal tracking
+data from a Leap Motion and machine learning to interpret signs.
+
+Please watch the [video demo](http://www.youtube.com/watch?v=KUIJNmyelaY)!
+
+This project was made in under 24 hours for TAMUHack 2015. Thanks to the
+organizers!
+
+## Setup
+
+- Clone this repository
+- Install packages from `requirements.txt`
+- Input training data (we used the `train()` function in `trainer.py`)
+- Start Redis running on localhost at port 6379
+- `python app.py`
+  - This step may take a few seconds the first time because the classifier has
+    to be trained on the data. After that first time, the classifier is
+    serialized to disk and loaded much more quickly on subsequent restart.
+- Open a browser to the URL outputted in the console
