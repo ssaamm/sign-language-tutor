@@ -14,7 +14,6 @@ organizers!
 
 - Clone this repository
 - Install packages from `requirements.txt`
-- Input training data (we used the `train()` function in `trainer.py`)
 - Start Redis running on localhost at port 6379
 - `python app.py`
   - This step may take a few seconds the first time because the classifier has
