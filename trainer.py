@@ -10,9 +10,6 @@ NUM_SAMPLES = 100
 SAMPLE_DELAY = .1
 NUM_FEATURES = 60
 
-with open('wordLemPoS/markov.pkl', 'r') as f:
-    markov = pickle.load(f)
-
 def get_char_to_train():
     training_char = raw_input("Enter char to train: ")
 
@@ -48,14 +45,11 @@ def guess_char():
     probs = zip(classes, clf.predict_proba([v for k, v in
         get_hand_position(controller, True).iteritems()])[0])
 
-    m = markov[prev]
-    most_sym, most_val = m.most_common(1)[0]
-
     alpha = max([score for sym, score in probs])
 
-    most_probable = sorted([(sym, alpha * score + (1 - alpha) * m[sym] /
-        most_val) for sym, score in probs], key=lambda t: t[1],
-        reverse=True)
+    most_probable = sorted([(sym, alpha * score + (1 - alpha))
+                            for sym, score in probs], key=lambda t: t[1],
+                            reverse=True)
     print most_probable[:3]
     prev = most_probable[0][0]
     print prev
