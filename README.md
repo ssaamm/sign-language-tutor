@@ -5,7 +5,7 @@
 A language learning tool for American Sign Language which uses skeletal tracking
 data from a Leap Motion and machine learning to interpret signs.
 
-Please watch the [video demo](http://www.youtube.com/watch?v=KUIJNmyelaY)!
+Please watch the [video demo](https://www.samueltaylor.org/projects/asl-tutor.html)!
 
 This project was made in under 24 hours for TAMUHack 2015. Thanks to the
 organizers!
